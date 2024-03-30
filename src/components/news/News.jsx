@@ -122,12 +122,13 @@ const GptInput = styled.div`
         border: none;
         backdrop-filter: blur(10px);
         border-radius: 15px;
-        width: 40vw;
+        width:60vw;
+        height: 15vh;
         padding: 1rem;
         }
         input{
             margin: 0rem 0 0rem 2rem;
-            padding: .5rem 1.5rem;
+            padding: .5rem 1rem;
             border-radius: 40px;
             background: linear-gradient(45deg, #bc4f34, #9e432c);
             box-shadow:  2px -2px 5px #712f1f, -2px 2px 5px #ef6543;
@@ -141,14 +142,14 @@ const GptInput = styled.div`
 
 
 const GPTtext = styled.div`
-    width:60vw;
-    height: 65vh;
+    width:80vw;
+    height: 55vh;
     margin: 0 1rem 0 0;
     border-radius: 50px;
     background: #ffb19e;
     box-shadow:  20px -20px 60px #d99686,-20px 20px 60px #ffccb6;
     .heading{
-        width: 60vw;
+        width: 80vw;
         height: auto;
         padding: 1rem;
         background-color: #b04a31;
