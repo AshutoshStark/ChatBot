@@ -13,18 +13,18 @@ import ImageGPT from './pages/ImageGPT';
 
 
 function App() {
-  const currentUser = useStateContext();
+
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={currentUser !== null ? <Landing/> : <LoginPage/>}/>
+          <Route path='/' element={<Landing/>}/>
           <Route path = '/login' element={<LoginPage/>}/>
           <Route path='/signup' element={<SignUpPage/>}/>
-          <Route path='/GPT' element={currentUser !== null ? <Home/> : <LoginPage/>}/>
-          <Route path='/user' element={currentUser !== null ? <User/> : <LoginPage/>}/>
-          <Route path='/Translate' element={currentUser !== null ? <Web/> : <LoginPage/>}/>
-          <Route path='/img' element={currentUser !== null ? <ImageGPT/> : <LoginPage/>}/>
+          <Route path='/GPT' element={<Home/>}/>
+          <Route path='/user' element={<User/>}/>
+          <Route path='/Translate' element={<Web/>}/>
+          <Route path='/img' element={ <ImageGPT/>}/>
         </Routes>
       </BrowserRouter>
     </div>
