@@ -19,8 +19,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Landing/>}/>
-          <Route path = '/login' element={<LoginPage/>}/>
-          <Route path='/signup' element={<SignUpPage/>}/>
           <Route path='/GPT' element={<Home/>}/>
           <Route path='/user' element={<User/>}/>
           <Route path='/Translate' element={<Web/>}/>
