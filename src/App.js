@@ -3,7 +3,6 @@ import './App.css';
 import Landing from './pages/Landing';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import { useStateContext } from './GlobalContext/ContextProvider';
 import User from './components/User/User';
 import Web from './pages/Web';
 import ImageGPT from './pages/ImageGPT';
