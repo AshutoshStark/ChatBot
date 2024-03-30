@@ -1,33 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useStateContext } from '../../GlobalContext/ContextProvider';
-import { auth } from '../../Firebase/firebase';
-import { signOut } from 'firebase/auth';
 import Layout from '../layout/Layout';
 import {useNavigate} from 'react-router-dom';
 
 const User = () => {
     const navigate = useNavigate();
-    const  {currentUser} = useStateContext();
-    const handleSignout=async()=>{
-        await signOut(auth).then((response)=>{
-            navigate("/");
-        });  
-    }
+
+
     return (
         <Layout>
             <Main>
             <Component>
-        <div className="userPic">
-            <img src={currentUser.photoURL} alt="" />
-        </div>
-        <div className="username">
-            {currentUser.displayName}
-        <div className="email">
-            {currentUser.email}
-        </div>
-        </div>
-        <button className="logoutbutton" onClick={()=>handleSignout()}> Log out</button>
+       
             </Component>
             </Main>
         </Layout>
