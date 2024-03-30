@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { useStateContext } from '../../GlobalContext/ContextProvider'
+
 import Home from '../../pages/Home'
 import { useState } from 'react'
 
 const Navbar = () => {
     
-    const  {currentUser} = useStateContext();
+
     const [index, Setindex] = useState();
 
   return (
@@ -15,9 +15,9 @@ const Navbar = () => {
         <NavBar>
             <nav>
                 <Link to={'/user'} onClick={()=>Setindex(0)} className="user">
-                    <img src={currentUser.photoURL} alt="cant get img" />
+           
                     <p>
-                    {currentUser.displayName}
+           
                     </p>
                 </Link>
                 <Link to={'/GPT'} onClick={()=>Setindex(1)}>
