@@ -109,7 +109,8 @@ const GIF = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10rem 0 0 0;
+    margin: .5rem 0 0 0;
+    
 `
 
 const GptInput = styled.div`
@@ -132,6 +133,7 @@ const GptInput = styled.div`
             border-radius: 40px;
             background: linear-gradient(45deg, #bc4f34, #9e432c);
             box-shadow:  2px -2px 5px #712f1f, -2px 2px 5px #ef6543;
+            font-size: 10px;
         }
         .input{
             display: flex;
@@ -148,6 +150,9 @@ const GPTtext = styled.div`
     border-radius: 50px;
     background: #ffb19e;
     box-shadow:  20px -20px 60px #d99686,-20px 20px 60px #ffccb6;
+    font-size: 10px;
+    overflow-y: scroll;
+
     .heading{
         width: 80vw;
         height: auto;
@@ -161,6 +166,7 @@ const GPTtext = styled.div`
     }
     .GPT{
         margin: 1rem;
+        padding: 0.5rem;
     }
 `
 
