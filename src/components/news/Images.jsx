@@ -1,126 +1,163 @@
-import React, { Component, useEffect, useState } from 'react'
-import styled from 'styled-components'
-import {saveAs} from 'file-saver'
-import Loader from '../Loader/Loader';
-import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
-import { Axios } from 'axios';
+import React, { useRef, useState } from 'react'
+import { VscSend } from 'react-icons/vsc';
+import styled from 'styled-components';
+import TypeIt from 'typeit-react';
+// import GptLoader from '../Loader/GptLoader';
+import { RiImageAddLine } from "react-icons/ri";
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { fileToGenerativePart } from '../../Constants/imageHelper';
+
+const ImageGpt = () => {
+
+  const [Loading,setLoading] = useState()
+  const [Query, setQuery] = useState()
+  const [GenminiRes,setGeminiRes] = useState()
+  const [image,setImage] = useState()
+  const [imageInlineData,SetImageInlineData] = useState()
+  const [value, setValue] = useState()
+  const fileInputRef = useRef(null);
 
 
-const Images = () => {
+  const handleImageChange = (e)=>{
+    const file = e.target.files[0]
+    setImage(URL.createObjectURL(file))
+    fileToGenerativePart(file).then((image)=>{
+      SetImageInlineData(image)
+    })
+  }
 
-     function handle (e){
-        // e.preventDefault();
-        
-        const files = document.getElementById('file');
-
-        const formData = new FormData();
-
-        for(let i = 0 ; i< 1; i++){
-            formData.append("files",files.files[i]);
-        }
-
-        console.log(...formData)
-
-        fetch('http://localhost:3008/upload',{
-            method: 'POST',
-            body:formData,
-        })
-        .then(res=>res.json())
-        .then(data=>console.log(data))
-
-
-    }
-
-    console.log();
-    console.log();
-
-    return (
-        <Container>
-        <GPTtext>
-            <div className="heading">Acody GPT</div>
-            <div className="GPT">
-                
-                    {
-                    <GIF>
-                    <Loader/>
-                    </GIF>
-                    }
-                    {}
-                </div>
-        </GPTtext>
-        <GptInput>
-            <div className="input">
-                <form action="" >
-                <input type="file" name="file" id="file"  />
-                <input type="submit" value="submit" onClick={(e)=>handle()} />
-                </form>
+  async function aiImageRun(query,imageInineData) {
+    setLoading(1)
+    setValue('')
+    const MODEL_NAME = "gemini-pro-vision";
+    const API_KEY = "AIzaSyCnNJ4Lk3zpPtpuvaXxX2xIPRA5SI6FD1o";
+    const genAI = new GoogleGenerativeAI(API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+    const result = await model.generateContent([
+        `${query}`, imageInineData
+    ]);
+    const response = await result.response
+    const text = response.text()
+    setLoading(0)
+    return text;
+  }
+  
+      return (
+        <MainDiv>
+    
+          {/* {Loading === 1 && 
+          <LoadingAni>
+            <GptLoader/>
+          </LoadingAni>
+          } */}
+    
+          <Response>
+            <img src={image} alt="Your Image will be shown here . . ." />
+          { Loading === 0 &&
+              <TypeIt
+              options={{
+                strings : [`${GenminiRes}`],
+                speed:1,
+                waitUntilVisible:true,
+              }}
+              />
+          }
+          </Response>
+          <Requests>
+            <textarea name="" id="" onChange={(e)=>setQuery(e.target.value)} rows={3} value={value} placeholder='Enter Your Query....' />
+            <div className="submit">
+            <input type="file" hidden onChange={(e)=>{handleImageChange(e)}} ref={fileInputRef}/>
+            <button onClick={()=>fileInputRef.current.click()}><RiImageAddLine/></button>
+            <button disabled={!imageInlineData && !Query} onClick={()=>aiImageRun(Query, imageInlineData).then((response)=>{
+              setGeminiRes(response)
+            })}><VscSend/></button>
             </div>
-        </GptInput>
-    </Container>
-  )
-}
-
-
-const GIF = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10rem 0 0 0;
-`
-
-const GptInput = styled.div`
-        margin: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        textarea{
-        background-color: #f1820b21;
-        border: none;
-        backdrop-filter: blur(10px);
+          </Requests>
+        </MainDiv>
+      )
+    }
+    
+    const LoadingAni = styled.div`
+      width: 52vw;
+      height: 55vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      z-index: 2;
+    `
+    const MainDiv = styled.div`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      `
+    const Response = styled.div`
+      width: 60vw;
+      height: 70vh;
+      background: rgba( 65, 55, 148, 0.4 );
+      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+      backdrop-filter: blur( 20px );
+      -webkit-backdrop-filter: blur( 20px );
+      border-radius: 5px;
+      border: 1px solid rgba( 255, 255, 255, 0.18 );
+      padding: 1rem;
+      img{
+        width: 10vw;
         border-radius: 15px;
-        width: 40vw;
-        padding: 1rem;
+      }
+      @media screen and (max-width: 900px) {
+        margin: 1rem 0 0 0;
+        width: 80vw;
+      }
+      `
+    const Requests = styled.div`
+      margin: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      .submit{
+        position: absolute;
+        display: flex;
+        right: 28vw;
+        gap: 1rem;
+        button{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 60px;
+          width: 60px;
+          font-size: 2rem;
+          border-radius: 50% 50%;
+          background: #413794;
+          box-shadow:  -5px 5px 10px #1a163b, 1px -1px 5px #1101a0;
+          color: #06d306;
+            @media screen and (max-width: 900px) {
+              width: 40px;
+              height: 40px;
+            }
+          }
+            @media screen and (max-width: 900px) {
+              right: 8vw;
+            }
+      }
+      textarea{
+        color: white;
+        font-size: 1rem;
+        width: 45rem;
+        overflow-wrap: break-word;
+        background: rgba( 65, 55, 148, 0.4 );
+      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+      backdrop-filter: blur( 20px );
+      -webkit-backdrop-filter: blur( 20px );
+      border-radius: 5px;
+      border: 1px solid rgba( 255, 255, 255, 0.18 );
+      padding: 1rem;
+      @media screen and (max-width: 900px) {
+          width: 79vw;
+          overflow-y: scroll;
         }
-        input{
-            margin: 0rem 0 0rem 2rem;
-            padding: .5rem 1.5rem;
-            border-radius: 40px;
-            background: linear-gradient(45deg, #bc4f34, #9e432c);
-            box-shadow:  2px -2px 5px #712f1f, -2px 2px 5px #ef6543;
-        }
-        .input{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-`
+      }
+    `
 
-
-const GPTtext = styled.div`
-    width:60vw;
-    height: 65vh;
-    margin: 0 1rem 0 0;
-    border-radius: 50px;
-    background: #ffb19e;
-    box-shadow:  20px -20px 60px #d99686,-20px 20px 60px #ffccb6;
-    .heading{
-        width: 60vw;
-        height: auto;
-        padding: 1rem;
-        background-color: #b04a31;
-        border-radius: 50px 50px 0 0;
-        text-align: center;
-        font-size: 25px;
-        font-weight: 600;
-        color: black;
-    }
-    .GPT{
-        margin: 1rem;
-    }
-`
-
-const Container = styled.div`
-display: block;
-`
-
-export default Images
+export default ImageGpt

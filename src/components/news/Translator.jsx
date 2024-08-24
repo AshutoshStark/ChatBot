@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import {GoogleGenerativeAI, HarmCategory,HarmBlockThreshold} from "@google/generative-ai";
 import Loader from '../Loader/Loader';
+import { Link } from 'react-router-dom';
 
   const MODEL_NAME = "gemini-pro";
   const API_KEY = 'AIzaSyCnNJ4Lk3zpPtpuvaXxX2xIPRA5SI6FD1o';
@@ -47,7 +48,7 @@ const Translator = () => {
 ];
   
 const parts = [
-    {text: texts+'translate the given sentence in '+Lang},
+    {text: texts+'give an explanation in a easy way using story telling'},
 ];
     
 const result = await model.generateContent({
@@ -78,9 +79,9 @@ const GptCall=()=>{
     return (
         <Container>
         <GPTtext>
-            <div className="heading">Acody Translator</div>
+            <div className="heading">NS Bot</div>
             <div className="GPT">
-            {Loading == 0 && 
+            {Loading === 0 && 
                     <GIF>
                     <Loader/>
                     </GIF>
@@ -91,7 +92,6 @@ const GptCall=()=>{
         <GptInput>
             <div className="input">
                 <textarea placeholder='Enter the Sentence' name="" id="text" rows="6"/>
-                <input placeholder='Enter the Language' className='language' type='text' name="" id="lang" rows="6" />
                 <input type="submit" value="submit" onClick={()=>GptCall()} />
             </div>
         </GptInput>
@@ -111,7 +111,18 @@ const GptInput = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        a{
+            text-decoration: none;
+            padding: 1rem 2rem;
+            background-color: #9e432c;
+            border-radius: 15px;
+            color: white;
+        }
+        a:hover{
+            background-color: #bc4f34;
+        }
         .input{
+            gap: 1rem;
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -130,6 +141,7 @@ const GptInput = styled.div`
             border-radius: 40px;
             background: linear-gradient(45deg, #bc4f34, #9e432c);
             box-shadow:  2px -2px 5px #712f1f, -2px 2px 5px #ef6543;
+            color: white;
         }
         .language{
             margin: 0rem 0 0rem 2rem;

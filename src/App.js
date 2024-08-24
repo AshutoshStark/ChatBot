@@ -15,10 +15,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Landing/>}/>
-          <Route path='/GPT' element={<Home/>}/>
-          <Route path='/user' element={<User/>}/>
-          <Route path='/Translate' element={<Web/>}/>
+          <Route path='/' element={<Web/>}/>
           <Route path='/img' element={ <ImageGPT/>}/>
         </Routes>
       </BrowserRouter>
