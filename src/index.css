@@ -1,19 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
+::-webkit-scrollbar {
+  width: 0px;
+}
 body {
   margin: 0;
-  body {
+  
+  
     font-family: 'Open Sans', sans-serif;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    transition: var(--hover-timing);
-
-    background: var(--light-01);
-	
-	width: 100vw;
+    
+    background-color: blueviolet;
 	overflow-x: hidden;
   }
-}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

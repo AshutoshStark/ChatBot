@@ -10,10 +10,10 @@ import { Link } from 'react-router-dom';
 
 const Translator = () => {
 
-    const [result,Setresult] = useState();
+    const [result,Setresult] = useState('');
     const [Loading,SetLoading] = useState();
 
-  const getRes = async(texts,Lang) =>{
+  const getRes = async(texts) =>{
 
         SetLoading(0);
         Setresult(null);
@@ -70,7 +70,7 @@ const GptCall=()=>{
 
     var texts = document.getElementById("text").value;
     var Lang = document.getElementById("lang").value;
-    getRes(texts,Lang);
+    getRes(texts);
 }
 
     console.log(result);

@@ -46,7 +46,7 @@ const News = () => {
 ];
   
 const parts = [
-    {text: texts+'in 200 words'},
+    {text: texts+'explain this in story format in easy language mode'},
 ];
     
 const result = await model.generateContent({
@@ -76,7 +76,7 @@ const GptCall=()=>{
     return (
         <Container>
         <GPTtext>
-            <div className="heading">Acody GPT</div>
+            <div className="heading">NS GPT</div>
             <div className="GPT">
                 
                     {Loading === 0 && 
@@ -119,50 +119,64 @@ const GptInput = styled.div`
         align-items: center;
         justify-content: center;
         textarea{
-        background-color: #f1820b21;
+        background-color: #cbc6ff;
         border: none;
         backdrop-filter: blur(10px);
         border-radius: 15px;
         width:60vw;
-        height: 15vh;
+        border: white ;
+        color: #000000;
+        font-size: 15px;
+        font-weight: 600;
+        height: 13vh;
         padding: 1rem;
         }
         input{
             margin: 0rem 0 0rem 2rem;
-            padding: .5rem 1rem;
-            border-radius: 40px;
-            background: linear-gradient(45deg, #bc4f34, #9e432c);
-            box-shadow:  2px -2px 5px #712f1f, -2px 2px 5px #ef6543;
-            font-size: 10px;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            border: white;
+            background: linear-gradient(54deg, #ffa7ef, #ff00c8);
+            /* box-shadow:  2px -2px 5px #712f1f, -2px 2px 5px #ef6543; */
+            font-size: 20px;
+            font-weight: 500;
         }
         .input{
             display: flex;
             justify-content: space-around;
             align-items: center;
         }
-`
+
+        `
 
 
 const GPTtext = styled.div`
     width:80vw;
     height: 55vh;
-    margin: 0 1rem 0 0;
-    border-radius: 50px;
-    background: #ffb19e;
-    box-shadow:  20px -20px 60px #d99686,-20px 20px 60px #ffccb6;
+    /* margin: 0 1rem 0 0; */
+    margin: auto;
+    margin-top: 3em;
+    border-radius: 30px;
+    background: #efaef0;
+    box-shadow:  10px -10px 40px #ba65dc,-10px 10px 40px #e06fcf;
     font-size: 10px;
     overflow-y: scroll;
+    overflow-x: hidden;
+    
 
     .heading{
         width: 80vw;
         height: auto;
         padding: 1rem;
-        background-color: #b04a31;
-        border-radius: 50px 50px 0 0;
+        background-color: #000000;
+        border-radius: 30px 30px 0 0;
         text-align: center;
-        font-size: 25px;
-        font-weight: 600;
-        color: black;
+        font-size: 30px;
+        font-family: serif;
+        font-weight: 800;
+        color: #f5eded;
     }
     .GPT{
         margin: 1rem;

@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import User from './components/User/User';
 import Web from './pages/Web';
 import ImageGPT from './pages/ImageGPT';
+import News from './components/news/News';
 
 
 
@@ -15,8 +16,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Web/>}/>
-          <Route path='/img' element={ <ImageGPT/>}/>
+          <Route path='/' element={<News/>}/>
         </Routes>
       </BrowserRouter>
     </div>
