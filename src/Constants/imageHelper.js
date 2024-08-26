@@ -17,7 +17,7 @@ export async function fileToGenerativePart(file) {
 async function aiImageRun(query,imageInineData) {
     
     const MODEL_NAME = "gemini-pro-vision";
-    const API_KEY = "AIzaSyCnNJ4Lk3zpPtpuvaXxX2xIPRA5SI6FD1o";
+    const API_KEY = process.env.REACT_APP_GPT_KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
     const result = await model.generateContent([
