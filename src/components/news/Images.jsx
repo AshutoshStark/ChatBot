@@ -6,6 +6,7 @@ import TypeIt from 'typeit-react';
 import { RiImageAddLine } from "react-icons/ri";
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { fileToGenerativePart } from '../../Constants/imageHelper';
+import Loader from '../Loader/Loader';
 
 const ImageGpt = () => {
 
@@ -29,10 +30,10 @@ const ImageGpt = () => {
   async function aiImageRun(query,imageInineData) {
     setLoading(1)
     setValue('')
-    const MODEL_NAME = "gemini-pro-vision";
-    const API_KEY = "AIzaSyCnNJ4Lk3zpPtpuvaXxX2xIPRA5SI6FD1o";
+    const MODEL_NAME = "gemini-1.5-flash";
+    const API_KEY = process.env.REACT_APP_GPT_KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+    const model = genAI.getGenerativeModel({ model: MODEL_NAME });
     const result = await model.generateContent([
         `${query}`, imageInineData
     ]);
@@ -45,11 +46,11 @@ const ImageGpt = () => {
       return (
         <MainDiv>
     
-          {/* {Loading === 1 && 
+          {Loading === 1 && 
           <LoadingAni>
-            <GptLoader/>
+            <Loader/>
           </LoadingAni>
-          } */}
+          }
     
           <Response>
             <img src={image} alt="Your Image will be shown here . . ." />
@@ -66,7 +67,7 @@ const ImageGpt = () => {
           <Requests>
             <textarea name="" id="" onChange={(e)=>setQuery(e.target.value)} rows={3} value={value} placeholder='Enter Your Query....' />
             <div className="submit">
-            <input type="file" hidden onChange={(e)=>{handleImageChange(e)}} ref={fileInputRef}/>
+            <input type="file" hidden onChange={(e)=>{handleImageChange(e)}} accept='image/*' capture='camera' ref={fileInputRef}/>
             <button onClick={()=>fileInputRef.current.click()}><RiImageAddLine/></button>
             <button disabled={!imageInlineData && !Query} onClick={()=>aiImageRun(Query, imageInlineData).then((response)=>{
               setGeminiRes(response)

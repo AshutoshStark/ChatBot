@@ -17,6 +17,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<News/>}/>
+          <Route path='/img' element={<ImageGPT/>}/>
         </Routes>
       </BrowserRouter>
     </div>
