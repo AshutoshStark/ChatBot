@@ -68,17 +68,17 @@ const ImageGpt = () => {
             <textarea name="" id="" onChange={(e)=>setQuery(e.target.value)} rows={3} value={value} placeholder='Enter Your Query....' />
             <div className="submit">
             <input type="file" hidden onChange={(e)=>{handleImageChange(e)}} accept='image/*' capture='camera' ref={fileInputRef}/>
-            <button onClick={()=>fileInputRef.current.click()}><RiImageAddLine/></button>
+            <button onClick={()=>fileInputRef.current.click()}>{`+`}</button>
             <button disabled={!imageInlineData && !Query} onClick={()=>aiImageRun(Query, imageInlineData).then((response)=>{
               setGeminiRes(response)
-            })}><VscSend/></button>
+            })}>{`>`}</button>
             </div>
           </Requests>
         </MainDiv>
       )
     }
     
-    const LoadingAni = styled.div`
+export    const LoadingAni = styled.div`
       width: 52vw;
       height: 55vh;
       display: flex;
@@ -87,14 +87,17 @@ const ImageGpt = () => {
       position: absolute;
       z-index: 2;
     `
-    const MainDiv = styled.div`
+export const MainDiv = styled.div`
+    width: 100%;
+    height: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       `
-    const Response = styled.div`
+export const Response = styled.div`
       width: 60vw;
+      overflow-y: scroll;
       height: 70vh;
       background: rgba( 65, 55, 148, 0.4 );
       box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -112,11 +115,12 @@ const ImageGpt = () => {
         width: 80vw;
       }
       `
-    const Requests = styled.div`
+ export const Requests = styled.div`
       margin: 1rem;
       display: flex;
       align-items: center;
       justify-content: space-around;
+      overflow-y: scroll;
       .submit{
         position: absolute;
         display: flex;
@@ -133,6 +137,9 @@ const ImageGpt = () => {
           background: #413794;
           box-shadow:  -5px 5px 10px #1a163b, 1px -1px 5px #1101a0;
           color: #06d306;
+          .icon{
+            
+          }
             @media screen and (max-width: 900px) {
               width: 40px;
               height: 40px;
